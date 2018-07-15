@@ -47,8 +47,17 @@ export class BattleComponent implements OnInit {
       return;
     }
 
-    // Code here
+    const deployedRobotGame = await this.RobotGame.deployed();
+    const robotsID = await deployedRobotGame.getRobotsByOwner(this.account);
+    this.isEnabled = robotsID.length > 0;
 
+    const robots = [];
+    for (let index = 0; index < robotsID.length; index++) {
+      const robot = await deployedRobotGame.robots(robotsID[index]);
+      robot.push(robotsID[index]);
+      robots.push(robot);
+    }
+    this.robots = robots;
     this.cd.detectChanges();
   }
 
@@ -58,8 +67,21 @@ export class BattleComponent implements OnInit {
     }
 
     const deployedRobotGame = await this.RobotGame.deployed();
-    // Code here
-
+    let stop = true;
+    let index = 0;
+    const robots = [];
+    while (stop) {
+      try {
+        const robot = await deployedRobotGame.robots(index);
+        console.log(robot);
+        robots.push(robot);
+        robot.push(index);
+        index++;
+      } catch (error) {
+        stop = false;
+      }
+    }
+    this.robotsAll = robots;
     this.cd.detectChanges();
   }
 
@@ -70,7 +92,9 @@ export class BattleComponent implements OnInit {
     const deployedRobotGame = await this.RobotGame.deployed();
 
     try {
-      // Code here
+      const result = await deployedRobotGame.attack(this.ownRobot, id, { from: this.account} );
+      this.getRobots();
+      this.getAllRobots();
       this.alert = {
         show: true,
         msg: 'Battle finished'

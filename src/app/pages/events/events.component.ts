@@ -31,6 +31,15 @@ export class EventsComponent implements OnInit {
 
     const deployedRobotGame = await this.RobotGame.deployed();
 
-    // Code here
+    const events = deployedRobotGame.allEvents({
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+
+    events.watch((err, res) => {
+      console.log(res);
+      this.events.unshift(res);
+      this.cd.detectChanges();
+    });
   }
 }

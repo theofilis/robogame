@@ -3,7 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Web3Service } from '../../_services';
 
 declare let require: any;
-const game_artifacts = require('../../../../build/contracts/RobotMinting.json');
+const game_artifacts = 
+  require('../../../../build/contracts/RobotMinting.json');
 
 @Component({ templateUrl: 'create.component.html' })
 export class CreateComponent implements OnInit {
@@ -46,7 +47,20 @@ export class CreateComponent implements OnInit {
     }
 
     const deployedRobotGame = await this.RobotGame.deployed();
-    // Code here
+    const robotsID = await deployedRobotGame.getRobotsByOwner(this.account);
+    this.show = robotsID.length <= 0;
+    console.log(robotsID);
+
+    if (robotsID.length > 0) {
+      this.transfer.id = robotsID[0];
+    }
+
+    for (let index = 0; index < robotsID.length; index++) {
+      const robot = await deployedRobotGame.robots(robotsID[index]);
+      robot.push(robotsID[index]);
+      this.robots.push(robot);
+    }
+    console.log(this.robots);
     this.cd.detectChanges();
   }
 
@@ -58,7 +72,8 @@ export class CreateComponent implements OnInit {
     const deployedRobotGame = await this.RobotGame.deployed();
 
     try {
-      // Code here
+      const result = await deployedRobotGame.createRandomRobot(this.name, { from: this.account });
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +87,8 @@ export class CreateComponent implements OnInit {
     const deployedRobotGame = await this.RobotGame.deployed();
 
     try {
-      // Code here
+      const result = await deployedRobotGame.transfer(this.transfer.address, this.transfer.id, { from: this.account });
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -83,11 +99,12 @@ export class CreateComponent implements OnInit {
     if (!this.RobotGame) {
       return;
     }
+    console.log(fee);
     const deployedRobotGame = await this.RobotGame.deployed();
 
     try {
-      // Code here
-
+      const result = await deployedRobotGame.levelUp(id, { from: this.account, value: fee });
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
