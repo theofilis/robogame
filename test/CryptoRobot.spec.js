@@ -43,6 +43,7 @@ contract("RobotMinting", (accounts) => {
   });
 
   it("Level up robot", async () => {
+    // Task 2. Upgrade το robot σου.
     const fee = web3.toWei(0.001,"ether");
     let result = await instance.levelUp(0, {from: accounts[2], value: fee});
     assert.equal('0x01', result.receipt.status, '');
@@ -137,6 +138,7 @@ contract("RobotMinting", (accounts) => {
   });
 
   it("Get robots by owner", async () => {
+    // Task 8. Βρες τα robot του χρήστη,
     let result = await instance.getRobotsByOwner(accounts[0]);
     assert.equal(0, result[0], 'get robots');
   });

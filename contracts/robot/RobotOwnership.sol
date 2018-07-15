@@ -36,14 +36,8 @@ contract RobotOwnership is RobotBattle, ERC721 {
         _balance = ownerRobotCount[_owner];
     }
 
-    function ownerOf(uint256 _tokenId) public view returns (address _owner)
-    {
+    function ownerOf(uint256 _tokenId) public view returns (address _owner) {
         _owner = robotToOwner[_tokenId];
-        // return robotToOwner[_tokenId];
-    }
-
-    function totalSupply() public view returns (uint256 total) {
-        return 1000;
     }
 
     function _transfer(address _from, address _to, uint256 _tokenId) private {
@@ -53,31 +47,27 @@ contract RobotOwnership is RobotBattle, ERC721 {
         emit Transfer(_from, _to, _tokenId);
     }
 
-    function transferFrom(address _from, address _to, uint256 _tokenId) public
-        onlyOwner 
-    {
-        require(robotApprovals[_tokenId] == _to);
-        _transfer(_from, _to, _tokenId);
-    }
-
-    function transfer(address _to, uint256 _tokenId) public 
-        onlyOwnerOf(_tokenId) 
-    {
+    function transfer(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
         _transfer(msg.sender, _to, _tokenId);
     }
 
-    function approve(address _to, uint256 _tokenId) public
-        onlyOwnerOf(_tokenId) 
-    {
+    function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
         robotApprovals[_tokenId] = _to;
         emit Approval(msg.sender, _to, _tokenId);
     }
 
-    function takeOwnership(uint256 _tokenId) public 
-    {
+    function takeOwnership(uint256 _tokenId) public {
         require(robotApprovals[_tokenId] == msg.sender);
         address owner = ownerOf(_tokenId);
         _transfer(owner, msg.sender, _tokenId);
+    }
+
+    function totalSupply() public view returns (uint256 total) {
+        return 1000;
+    }
+
+    function transferFrom( address _from, address _to, uint256 _tokenId) public {
+        _transfer(_from, _to, _tokenId);
     }
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
@@ -90,8 +80,9 @@ contract RobotOwnership is RobotBattle, ERC721 {
 
     /// @dev Checks if a given address is the current owner of a particular Robot.
     /// @param _claimant the address we are validating against.
-    /// @param _tokenId
+    /// @param _tokenId kitten id, only valid when > 0
     function _owns(address _claimant, uint256 _tokenId) internal view returns (bool) {
         return robotToOwner[_tokenId] == _claimant;
     }
+
 }

@@ -6,7 +6,7 @@ import "./RobotAuction.sol";
 /// @title all functions related to creating robots
 contract RobotMinting is RobotAuction {
 
-    // Limits the number of the contract owner can ever create.
+    // Limits the number of cats the contract owner can ever create.
     uint256 public constant PROMO_CREATION_LIMIT = 5000;
     uint256 public constant GEN0_CREATION_LIMIT = 45000;
 
@@ -14,7 +14,7 @@ contract RobotMinting is RobotAuction {
     uint256 public constant GEN0_STARTING_PRICE = 10 finney;
     uint256 public constant GEN0_AUCTION_DURATION = 1 days;
 
-    // Counts the number of the contract owner has created.
+    // Counts the number of cats the contract owner has created.
     uint256 public promoCreatedCount;
     uint256 public gen0CreatedCount;
 
@@ -37,7 +37,7 @@ contract RobotMinting is RobotAuction {
     function createGen0Auction(string _name, uint256 _genes) external onlyOwner {
         require(gen0CreatedCount < GEN0_CREATION_LIMIT);
 
-        uint256 robotId = _createRobot(_name, _genes, address(this));
+        uint256 robotId =  _createRobot(_name, _genes, address(this));
         approve(saleAuction, robotId);
 
         saleAuction.createAuction(
