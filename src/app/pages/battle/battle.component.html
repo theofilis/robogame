@@ -1,0 +1,88 @@
+<div class="page">
+  <div class="page-content">
+    <div class="alert alert-primary" *ngIf="alert.show">
+      <button type="button" class="close" (click)="dismiss()"></button>
+      {{ alert.msg }}
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Own</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <!-- <th>DNA</th> -->
+                  <th>Level</th>
+                  <th>Win</th>
+                  <th>Loss</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let robot of robots">
+                  <td>
+                    <span class="text-muted">{{robot[6]}}</span>
+                  </td>
+                  <td>{{robot[0]}}</td>
+                  <!-- <td>{{robot[1]}}</td> -->
+                  <td>{{robot[2]}}</td>
+                  <td>{{robot[4]}}</td>
+                  <td>{{robot[5]}}</td>
+                  <td class="w-1">
+                    <button (click)="selectOwn(robot[6])" [disabled]="robot[6] == ownRobot" type="button" class="btn btn-icon btn-primary btn-sm">
+                      <i class="fe fe-check-square"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Theirs</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <!-- <th>DNA</th> -->
+                  <th>Level</th>
+                  <th>Win</th>
+                  <th>Loss</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let robot of robotsAll">
+                  <td>
+                    <span class="text-muted">{{robot[6]}}</span>
+                  </td>
+                  <td>{{robot[0]}}</td>
+                  <!-- <td>{{robot[1]}}</td> -->
+                  <td>{{robot[2]}}</td>
+                  <td>{{robot[4]}}</td>
+                  <td>{{robot[5]}}</td>
+                  <td class="w-1">
+                    <button (click)="attack(robot[6])" [disabled]="robot[6] == ownRobot" type="button" class="btn btn-icon btn-danger btn-sm">
+                      <i class="fe fe-zap"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="page">
+  <div class="page-content">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Events</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>TX</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let event of events">
+                  <td>
+                    <span class="text-muted">{{event.event}}</span>
+                  </td>
+                  <td>{{event.transactionHash}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

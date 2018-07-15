@@ -1,0 +1,99 @@
+<div class="page">
+  <div class="page-content">
+    <div class="row" *ngIf="show">
+      <div class="col">
+        <form (ngSubmit)="createNewRobot()" class="card">
+          <div class="card-header">
+            <h3 class="card-title">Create a new Robot</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Robot Name</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="name" name="name" id="name" placeholder="Terminator">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex">
+              <button class="btn btn-primary ml-auto" type="submit">Create!</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!show">
+      <div class="col-4">
+        <form (ngSubmit)="transferRobot()" class="card">
+          <div class="card-header">
+            <h3 class="card-title">Transfer Robot</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Robot</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="transfer.id"
+                  name="transfer.id" id="transfer.id" placeholder="0">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="transfer.address"
+                  name="transfer.address" id="transfer.address" placeholder="0x44Fbc1b7a4fba64CB101d67145eaC363C8ff1346">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex">
+              <button class="btn btn-primary ml-auto" type="submit">Move</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Robots</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>DNA</th>
+                  <th>Level</th>
+                  <th>Win</th>
+                  <th>Loss</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let robot of robots">
+                  <td>
+                    <span class="text-muted">{{robot[6]}}</span>
+                  </td>
+                  <td>{{robot[0]}}</td>
+                  <td>{{robot[1]}}</td>
+                  <td>{{robot[2]}}</td>
+                  <td>{{robot[4]}}</td>
+                  <td>{{robot[5]}}</td>
+                  <td class="w-1">
+                    <button 
+                      (click)="levelUp(robot[6])"
+                      type="button"
+                      class="btn btn-icon btn-warning btn-sm">
+                      <i class="fe fe-trending-up"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
