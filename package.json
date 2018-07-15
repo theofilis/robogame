@@ -1,0 +1,17 @@
+{
+  "name": "robogame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+  },
+  "author": "George Theofilis",
+  "license": "ISC",
+  "dependencies": {
+    "truffle-hdwallet-provider": "0.0.5",
+    "zeppelin-solidity": "1.10.0"
+  }
+}
