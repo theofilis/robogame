@@ -3,22 +3,22 @@ pragma solidity ^0.4.8;
 contract HoneyPot {
     mapping (address => uint) public balances;
 
-    constructor () payable {
+    constructor () public payable {
         put();
     }
 
-    function put() payable {
+    function put() public payable {
         balances[msg.sender] = msg.value;
     }
 
-    function get() {
+    function get() public {
         if (!msg.sender.call.value(balances[msg.sender])()) {
-        throw;
+            throw;
         }
         balances[msg.sender] = 0;
     }
 
-    function() {
+    function() public {
         throw;
     }
 }

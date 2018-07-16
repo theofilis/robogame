@@ -1,5 +1,5 @@
 const HDWalletProvider = require("truffle-hdwallet-provider");
-const mnemonic = "dinner filter frozen verify mix alone mountain onion leisure physical tennis shuffle";
+const mnemonic = "<your seed>";
 
 module.exports = {
   networks: {

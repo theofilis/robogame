@@ -6,22 +6,22 @@ contract HoneyPotCollect {
 
     HoneyPot public honeypot;
 
-    constructor (address _honeypot) {
+    constructor (address _honeypot) public {
         honeypot = HoneyPot(_honeypot);
     }
 
-    function kill () {
-        suicide(msg.sender);
+    function kill () external {
+        selfdestruct(msg.sender);
     }
 
-    function collect() payable {
+    function collect() external payable {
         honeypot.put.value(msg.value)();
         honeypot.get();
     }
 
-    function () payable {
+    function () external payable {
         if (address(honeypot).balance >= msg.value) {
-        honeypot.get();
+            honeypot.get();
         }
     }
 
